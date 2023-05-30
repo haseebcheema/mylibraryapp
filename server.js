@@ -9,6 +9,7 @@ if(process.env.NODE_ENV !== 'production'){
 
 const ejsLayouts = require('express-ejs-layouts');
 const indexRouter = require('./routes/index');
+const authorRouter = require('./routes/authors');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -16,7 +17,8 @@ app.set('layout', 'layouts/layout')
 
 app.use(ejsLayouts);
 app.use(express.static('public'));
-app.use(indexRouter)
+app.use('/', indexRouter);
+app.use('/authors', authorRouter);
 
 const mongoose = require('mongoose');
 const { error } = require('console');
@@ -31,7 +33,6 @@ db.on('error', (error) => {
 db.once('open', () => {
     console.log('connected to database');
 })
-
 
 app.listen(process.env.PORT || PORT_NUM, () => {
     console.log('server is running');
