@@ -1,1 +1,9 @@
-CREATE AUTHOR
+<h1>Create New Author</h1>
+
+  <form action="/authors" method="POST">
+
+    <%- include('./_form_fields.ejs') %>
+
+    <button type="submit">Create</button>
+    <button type="button" onclick="location.href='/authors';">Cancel</button>
+  </form>
