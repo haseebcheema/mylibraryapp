@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Book = require('../model/book');
 const Author = require('../model/author');
-const { default: mongoose } = require('mongoose');
+const { default: mongoose, ConnectionStates } = require('mongoose');
 
 const fs = require('fs');
 
@@ -21,8 +21,26 @@ const upload = multer({
 });
 
 // get all books
-router.get('/', (req, res) => {
-    res.send('ALL BOOKS');
+router.get('/', async (req, res) => {
+    let query = Book.find();
+    if (req.query.title != null && req.query.title != '') {
+        query = query.regex('title', new RegExp(req.query.title, 'i'))
+    }
+    if (req.query.publishedBefore != null && req.query.publishedBefore != '') {
+        query = query.lte('publishDate', req.query.publishedBefore)
+    }
+    if (req.query.publishedAfter != null && req.query.publishedAfter != '') {
+        query = query.gte('publishDate', req.query.publishedAfter)
+    }
+    try{
+        const books = await query.exec();
+        res.render('books/index', {
+            books: books,
+            searchOptions: req.query
+        })
+    } catch(err){
+        res.redirect('/');
+    }
 });
 
 // get form where new book is created
@@ -31,11 +49,11 @@ router.get('/new', async (req, res) => {
 });
 
 // to create a new book
-router.post('/', upload.single('cover'), async (req, res) => {
+router.post('/', upload.single('coverImageName'), async (req, res) => {
     const fileName = req.file != null ? req.file.filename : null;
     const book = new Book({
         title: req.body.title,
-        author: req.body.author,
+        author: req.body.author.trim(),
         publishDate: new Date(req.body.publishDate),
         pageCount: req.body.pageCount,
         description: req.body.description,
@@ -44,8 +62,9 @@ router.post('/', upload.single('cover'), async (req, res) => {
 
     try {
         const newBook = await book.save();
-        res.redirect('books');
+        res.redirect('/books');
     } catch (error) {
+        console.log(error)
         if(book.coverImageName != null){
             removeBookCover(book.coverImageName);
         }
@@ -60,11 +79,8 @@ async function renderNewPage(res, book, hasError = false){
         const params = {
             authors: authors,
             book: book
-        }
-
-        if(hasError) params.errorMessage = 'Error creating book';
-
-        const book = new Book();
+        };
+        if (hasError) params.errorMessage = 'Error creating book';
         res.render('books/new', params);
     } catch (error) {
         res.redirect('/books');
