@@ -90,11 +90,11 @@ async function renderNewPage(res, book, hasError = false){
     }
 }
 
-// // function for removing book covers if error occurs
-// // function removeBookCover(fileName){
-// //     fs.unlink(path.join(uploadPath, fileName), err => {
-// //         if (err) console.error(err);
-// //     })
+// function for removing book covers if error occurs
+// function removeBookCover(fileName){
+//     fs.unlink(path.join(uploadPath, fileName), err => {
+//         if (err) console.error(err);
+//     })
 // }
 
 // function for savng cover image to database
