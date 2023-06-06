@@ -7,17 +7,18 @@
     
     <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
-    
+    <link rel="stylesheet" href="/stylesheets/main.css">
     <title>Library</title>
 </head>
 <body>
-    <%- include('../partials/header') %>
-    <%- include('../partials/errorMessage') %>
-    <br>
-
-    <%- body %>
-    
-    <br>
+    <div class="container">
+        <%- include('../partials/header') %>
+        <div class="inner-container">
+            <%- include('../partials/errorMessage') %>
+            <br>
+            <%- body %>
+        </div>
+    </div>
 
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
     <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
