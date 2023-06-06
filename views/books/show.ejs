@@ -10,18 +10,20 @@
     </div>
     <div class="book-details-grid">
         <div class="book-details-label">Author:</div>
-        <div>Author: <%= book.author.name %></div>
+        <div>
+            <%= book.author.name %>
+        </div>
         <div class="book-details-label">Publish Date:</div>
         <div>
-            Publish Date: <%= book.publishDate.toDateString() %>
+            <%= book.publishDate.toDateString() %>
         </div>
         <div class="book-details-label">Page Count:</div>
         <div>
-            Page Count: <%= book.pageCount %>
+            <%= book.pageCount %>
         </div>
         <div class="book-details-label">Description:</div>
         <div>
-            Description: <%= book.description %>
+            <%= book.description %>
         </div>
     </div>
 </div>
