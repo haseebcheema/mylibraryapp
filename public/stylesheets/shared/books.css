@@ -35,6 +35,7 @@
   }
   
   .book-details-grid {
+    margin-left: 15px;
     display: grid;
     align-content: flex-start;
     align-items: center;
