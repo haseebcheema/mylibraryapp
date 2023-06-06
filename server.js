@@ -29,7 +29,7 @@ app.use('/books', bookRouter);
 const mongoose = require('mongoose');
 const { error } = require('console');
 mongoose.connect(process.env.DATABASE_URL, {
-    useNewURLParser: true
+    useNewUrlParser: true
 });
 
 const db = mongoose.connection;
