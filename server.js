@@ -28,7 +28,7 @@ app.use('/books', bookRouter);
 
 const mongoose = require('mongoose');
 const { error } = require('console');
-mongoose.connect(process.env.DATABASE_URL, {
+mongoose.connect(process.env.DATABASE_URL_2, {
     useNewUrlParser: true
 });
 
