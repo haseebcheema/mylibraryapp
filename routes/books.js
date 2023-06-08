@@ -104,7 +104,7 @@ router.put('/:id', async (req, res) => {   // upload.single('coverImageName')
         book.author = req.body.author.trim();
         book.publishDate = new Date(req.body.publishDate);
         book.pageCount = req.body.pageCount;
-        book.description = req.body.description;
+        book.description = req.body.description.trim();
         if (req.body.coverImage != null && req.body.coverImage !== ''){
             saveCover(book, req.body.coverImage);
         }
